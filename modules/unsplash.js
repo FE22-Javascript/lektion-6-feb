@@ -3,13 +3,20 @@ let startURL = 'https://api.unsplash.com/';
 let searchEndPoint = 'search/photos?query=';
 let randomEndPoint = 'photos/random?content_filter=high';
 
-function getImages(search, input) {
+async function getImages(search, input) {
+    let url = '';
     if (search) {
-        let url = startURL + searchEndPoint + input + '&client_id=' + client_id;
+        url = startURL + searchEndPoint + input + '&client_id=' + client_id;
         console.log(url);
     } else {
-        let url = startURL + randomEndPoint + '&client_id=' + client_id;
+        url = startURL + randomEndPoint + '&client_id=' + client_id;
         console.log(url)
     }
+
+    //url är redo - dags att fetcha
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
 }
-getImages(false);
+
+export default getImages;
